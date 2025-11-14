@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native/new-app-screen": "0.82.1",
     "lucide-react-native": "^0.553.0",
     "nativewind": "^4.2.1",
