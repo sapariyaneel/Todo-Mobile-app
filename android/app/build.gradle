@@ -72,6 +72,31 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
+/*
+ * Determine hermesEnabled safely — some projects expose this via project.ext
+ * or via gradle.properties. If not present, default to false.
+ */
+def hermesEnabled = false
+if (project.hasProperty('enableHermes')) {
+    hermesEnabled = project.property('enableHermes').toString().toBoolean()
+} else if (project.hasProperty('hermesEnabled')) {
+    hermesEnabled = project.property('hermesEnabled').toString().toBoolean()
+}
+
+//
+// Load keystore properties if a keystore.properties file exists at the project root.
+// Typical keystore.properties content:
+// storeFile=path/to/keystore.jks
+// storePassword=****
+ // keyAlias=***
+ // keyPassword=****
+//
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -92,6 +117,31 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            // If a keystore.properties file exists, use its values to sign release.
+            // Otherwise, default to debug keystore (ONLY for convenience during early dev).
+            if (keystorePropertiesFile.exists()) {
+                if (keystoreProperties['storeFile'] != null) {
+                    storeFile file(keystoreProperties['storeFile'])
+                }
+                if (keystoreProperties['storePassword'] != null) {
+                    storePassword keystoreProperties['storePassword']
+                }
+                if (keystoreProperties['keyAlias'] != null) {
+                    keyAlias keystoreProperties['keyAlias']
+                }
+                if (keystoreProperties['keyPassword'] != null) {
+                    keyPassword keystoreProperties['keyPassword']
+                }
+            } else {
+                // Fallback — not recommended for production. Create a keystore and
+                // supply a keystore.properties file for proper signing.
+                storeFile file('debug.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
     }
     buildTypes {
         debug {
@@ -100,7 +150,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
