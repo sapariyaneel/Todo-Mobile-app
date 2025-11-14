@@ -1,12 +1,12 @@
 import { View } from 'react-native';
 import './global.css';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import popup from './components/Popup-modal'
-import Header from './components/header';
-import Cards from './components/cards';
-import Filter from './components/filter'
-import Newtask from './components/Newtask';
-import TaskCard from './components/TaskCard';
+import popup from './src/components/Popup-modal'
+import Header from './src/components/header';
+import Cards from './src/components/cards';
+import Filter from './src/components/filter'
+import Newtask from './src/components/Newtask';
+import TaskCard from './src/components/TaskCard';
 
 const App = () => {
   return (
