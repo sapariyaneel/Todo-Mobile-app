@@ -22,6 +22,7 @@ const Newtask: React.FC<Props> = ({onAdd}) => {
       <TextInput
         className="bg-gray-300/50 rounded-xl h-12 px-3 border border-gray-400/40 w-3/5"
         placeholder="Add New Task"
+        placeholderTextColor='black'
         value={task}
         onChangeText={setTask}
         returnKeyType='done'

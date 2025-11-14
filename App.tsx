@@ -1,4 +1,4 @@
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, StatusBar, Text, View } from 'react-native';
 import './global.css';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from './src/components/header';
@@ -91,8 +91,9 @@ const App: React.FC = () => {
   })
 
   return (
-    <SafeAreaView className="flex-1">
-      <View className='flex-1'>
+    <SafeAreaView className="flex-1 bg-white">
+      <StatusBar barStyle='dark-content'/>
+      <View className='flex-1 bg-white'>
         <Header />
         <Cards 
           total={tasks.length}
