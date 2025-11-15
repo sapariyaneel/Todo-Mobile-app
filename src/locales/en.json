@@ -1,0 +1,28 @@
+{
+  "headerTitle": "Todo List",
+  "cards": {
+    "total": "Total",
+    "pending": "Pending",
+    "done": "Done"
+  },
+  "filter": {
+    "all": "All",
+    "completed": "Completed",
+    "pending": "Pending"
+  },
+  "newtask": {
+    "placeholder": "Add new task",
+    "button": "Add"
+  },
+  "noTasks": "No tasks yet",
+  "taskcard": {
+    "markComplete": "Mark as Completed",
+    "markIncomplete": "Mark as Incompleted",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmTitle": "Confirm Delete",
+    "confirmBody": "Are you sure you want to delete this task?",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}
