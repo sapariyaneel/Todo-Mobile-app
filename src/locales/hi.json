@@ -1,0 +1,28 @@
+{
+  "headerTitle": "टूडू सूची",
+  "cards": {
+    "total": "कुल",
+    "pending": "लंबित",
+    "done": "पूर्ण"
+  },
+  "filter": {
+    "all": "सभी",
+    "completed": "पूर्ण",
+    "pending": "लंबित"
+  },
+  "newtask": {
+    "placeholder": "नया कार्य जोड़ें",
+    "button": "जोड़ें"
+  },
+  "noTasks": "कोई कार्य नहीं",
+  "taskcard": {
+    "markComplete": "पूर्ण के रूप में चिह्नित करें",
+    "markIncomplete": "अधूरा के रूप में चिह्नित करें",
+    "edit": "संपादित करें",
+    "delete": "हटाएँ",
+    "confirmTitle": "हटाने की पुष्टि करें",
+    "confirmBody": "क्या आप वाकई इस कार्य को हटाना चाहते हैं?",
+    "save": "सहेजें",
+    "cancel": "रद्द करें"
+  }
+}

@@ -12,6 +12,7 @@ import {
 import React, { useState } from 'react';
 import { Check, Edit2, EllipsisVertical, Trash } from 'lucide-react-native';
 import type { Task } from '../../App';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   task: Task;
@@ -63,6 +64,8 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
     onToggle();
   };
 
+  const {t} = useTranslation()
+
   return (
     <View className="mx-auto w-[87%] mt-5">
       <View className="flex flex-row items-center justify-between h-13 border border-gray-400/50 p-5 rounded-xl bg-gray-300/20">
@@ -100,8 +103,8 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
               className='flex flex-row items-center px-3 py-2 rounded hover:opacity-90'
               >
                 <Check size={18}/>
-                <Text className='ml-3 text-base'>
-                  {task.completed ? 'Mark as Incompleted' : 'Mark as Completed'}
+                <Text className='ml-3 text-base w-full'>
+                  {task.completed ? t('taskcard.markIncomplete') : t('taskcard.markComplete')}
                 </Text>
               </TouchableOpacity>
               
@@ -110,8 +113,8 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
                 className='flex flex-row items-center px-3 py-2 rounded mt-1'
               >
                 <Edit2 size={18} />
-                <Text className='ml-3 text-base'>
-                  Edit
+                <Text className='ml-3 text-base w-full'>
+                  {t('taskcard.edit')}
                 </Text>
               </TouchableOpacity>
 
@@ -122,9 +125,9 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
                 }}
                 className='flex flex-row items-center px-3 py-2 rounded mt-1'
               >
-                <Trash size={18} />
+                <Trash size={18} color='red' />
                 <Text className='ml-3 text-base text-red-600'>
-                  Delete
+                  {t('taskcard.delete')}
                 </Text>
               </TouchableOpacity>
           </View>
@@ -136,14 +139,18 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
               onPress={saveEdit}
               className='bg-green-600 px-4 py-2 rounded-lg'
             >
-              <Text className='text-white font-semibold'>Save</Text>
+              <Text className='text-white font-semibold'>
+                {t('taskcard.save')}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={cancelEdit}
               className='bg-gray-300 px-4 py-2 rounded-lg'
             >
-              <Text className='text-black font-semibold'>Cancel</Text>
+              <Text className='text-black font-semibold'>
+                {t('taskcard.cancel')}
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -155,11 +162,13 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
           onRequestClose={() => setConfirmOpen(false)}
         >
           <TouchableWithoutFeedback onPress={() => setConfirmOpen(false)}>
-            <View className='flex-1 bg-black/40 justify-center items-center'>
-              <View className='bg-white w-11/12 max-w-md p-4 rouded-xl'>
-                <Text className='text-lg font-semibold'>Confirm Delete</Text>
+            <View className='flex-1 bg-black/40 justify-center items-center '>
+              <View className='bg-white w-11/12 max-w-md p-4 rounded-xl'>
+                <Text className='text-lg font-semibold'>
+                  {t('taskcard.confirmTitle')}
+                </Text>
                 <Text className='mt-2 text-gray-600'>
-                  Are you sure you want to delete this task?
+                  {t('taskcard.confirmBody')}
                 </Text>
 
                 <View className='flex-row justify-end mt-4'>
@@ -167,7 +176,9 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
                     onPress={() => setConfirmOpen(false)}
                     className='px-4 py-2 rounded-lg bg-gray-300 mr-2'
                   >
-                    <Text>Cancel</Text>
+                    <Text>
+                      {t('taskcard.cancel')}
+                    </Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -177,7 +188,9 @@ const TaskCard: React.FC<Props> = ({ task, onDelete, onSave, onToggle }) => {
                     }}
                     className='px-4 py-2 rounded-lg bg-red-600'
                   >
-                    <Text className='text-white'>Delete</Text>
+                    <Text className='text-white'>
+                      {t('taskcard.delete')}
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>

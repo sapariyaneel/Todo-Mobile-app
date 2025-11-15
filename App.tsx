@@ -3,11 +3,14 @@ import './global.css';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from './src/components/header';
 import Cards from './src/components/cards';
-import Filter from './src/components/filter'
+import Filter from './src/components/filter';
 import Newtask from './src/components/Newtask';
 import TaskCard from './src/components/TaskCard';
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNBootSplash from 'react-native-bootsplash'
+import './src/i18n'
+import { useTranslation } from 'react-i18next';
 
 export type Task = {
   id: string;
@@ -84,11 +87,19 @@ const App: React.FC = () => {
     setTimeout(() => setRefreshing(false), 300)
   }, [loadTasks])
 
+  useEffect(() => {
+    if (loaded) {
+      RNBootSplash.hide({ fade: true})
+    }
+  })
+
   const filteredTasks = tasks.filter(t => {
     if (filter === 'All') return true;
     if (filter === 'Completed') return t.completed === true
     return t.completed === false;
   })
+
+  const {t} = useTranslation();
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -104,7 +115,7 @@ const App: React.FC = () => {
         <Newtask onAdd={addTask} />
         {tasks.length === 0 ? (
           <View className='mt-10 items-center'>
-            <Text className='text-gray-400 text-lg'>No tasks yet</Text>
+            <Text className='text-gray-400 text-lg'>{t('noTasks')}</Text>
           </View>
         ) : (
           <FlatList
